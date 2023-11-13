@@ -1,6 +1,9 @@
 import { it, expect, describe, vi } from "vitest";
 import { mount, shallowMount } from "@vue/test-utils";
 import HelloWorld from "./HelloWorld.vue";
+import axios from "axios";
+
+vi.mock("axios");
 
 describe("First Part", () => {
   it("should render the msg property", () => {
@@ -33,14 +36,23 @@ describe("First Part", () => {
 }); // end of describe
 
 describe("Hello World test suites", () => {
-  global.fetch = vi.fn();
+  //   global.fetch = vi.fn();
 
-  it(" should make a fetch call using correct url depending on msg property", async () => {
+  //   it(" should make a fetch call using correct url depending on msg property", async () => {
+  //     //given the component is mounted
+  //     const instance = shallowMount(HelloWorld);
+  //     //when the mes property changes
+  //     await instance.setProps({ msg: "Test" });
+  //     //then we expect that the fetch call is made with the correct url
+  //     expect(fetch).toHaveBeenNthCalledWith(1, "https://example.com/Test");
+  //   });
+
+  it("should call axios.get function with https://httpbin.org/get when msg property changes", async () => {
     //given the component is mounted
     const instance = shallowMount(HelloWorld);
     //when the mes property changes
     await instance.setProps({ msg: "Test" });
     //then we expect that the fetch call is made with the correct url
-    expect(fetch).toHaveBeenNthCalledWith(1, "https://example.com/Test");
+    expect(axios.get).toHaveBeenNthCalledWith(1, "https://httpbin.org/get");
   });
-});
+}); // end of describe

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import axios from "axios";
 
 const props = defineProps<{ msg: string }>();
 
@@ -13,7 +14,8 @@ watch(
   () => props.msg,
   (value) => {
     console.log(value + "Console LOG");
-    fetch("https://example.com/" + value);
+    // fetch("https://example.com/" + value);
+    axios.get("https://httpbin.org/get");
   }
 );
 </script>
