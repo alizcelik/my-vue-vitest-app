@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
-defineProps<{ msg: string }>();
+const props = defineProps<{ msg: string }>();
 
 const count = ref(0);
 
 const increment = () => {
   count.value++;
 };
+
+watch(
+  () => props.msg,
+  (value) => {
+    console.log(value + "Console LOG");
+    fetch("https://example.com/" + value);
+  }
+);
 </script>
 
 <template>
